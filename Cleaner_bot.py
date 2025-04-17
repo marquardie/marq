@@ -11,8 +11,12 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 creds_json = os.getenv("GOOGLE_CREDS_JSON")
+
+import json
+json_creds = json.loads(creds_json)
 with open("google-creds.json", "w") as f:
-    f.write(creds_json.replace("\\n", "\n"))
+    json.dump(json_creds, f)
+
 
 GOOGLE_CREDS_FILE = "google-creds.json"
 
