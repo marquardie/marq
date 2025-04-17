@@ -1,1 +1,1 @@
-worker: python Cleaner_Bot.py
+web: python Cleaner_Bot.py
