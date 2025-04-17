@@ -10,7 +10,11 @@ import os
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-GOOGLE_CREDS_FILE = os.getenv("GOOGLE_CREDENTIALS_PATH")
+creds_json = os.getenv("GOOGLE_CREDS_JSON")
+with open("google-creds.json", "w") as f:
+    f.write(creds_json.replace("\\n", "\n"))
+
+GOOGLE_CREDS_FILE = "google-creds.json"
 
 # Авторизація Google Sheets
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
