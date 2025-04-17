@@ -4,10 +4,17 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime, timedelta, time
 import re
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+GOOGLE_CREDS_FILE = os.getenv("GOOGLE_CREDENTIALS_PATH")
 
 # Авторизація Google Sheets
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("civic-boulevard-456907-k1-9cb6a3f74d0f.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_CREDS_FILE, scope)
 client = gspread.authorize(creds)
 sheet = client.open("Window Robot Rental").sheet1
 context_sheet = client.open("Window Robot Rental").worksheet("Context")
@@ -278,7 +285,7 @@ def cancel(update: Update, context: CallbackContext):
 
 # --- MAIN ---
 def main():
-    updater = Updater("7962460121:AAE7_e_URG0dsES8Ncx5eHcld_Q85y5_vo4", use_context=True)
+    updater = Updater(BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", show_start_button))
